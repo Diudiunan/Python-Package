@@ -99,7 +99,7 @@ class CTree():
                 DictGini[key] = Attributedictionary
             return DictGini
 
-    #  下列为一个内部循环生产函数，由于牵涉到内的内部修改故而放弃，以计留念
+    #  下列为一个内部循环生产函数，由于牵涉到类的内部修改故而放弃，以计留念
     """def GetGini(self):
         # 嘿嗨嘿，兄弟们！开涮！！！
         RootGroupList = [i for i in self.index]
@@ -185,7 +185,8 @@ if __name__ == "__main__":
         print([p[1] for p in v.columns])"""
     #print(MyTree.Gini())
     #print(MyTree.GiniTree)
-    """print(GetGini(DataFrameTree)[:2])
+    print(GetGini(DataFrameTree)[:])
+    """
     print(GetGini(DataFrameTree, root="是否有房")[:2])
     DataFrameTreeShrink = GetDataFrame(file="Hipit shrink.csv")
     print(GetGini(DataFrameTreeShrink)[:2])"""

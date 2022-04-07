@@ -1,5 +1,6 @@
 import pandas as pd
 from FuckTree import *
+from DrawTreePlotter import *
 
 def HeHiHe(GET, ADATA):
     GTREE = GET[0]
@@ -39,6 +40,7 @@ help()
 DataFrameTree = GetDataFrame()
 GETGINIO = GetGini(DataFrameTree)
 print(GETGINIO[:2])
+DrawIT(GETGINIO)
 """print(GetGini(DataFrameTree, root="是否有房")[:2])
 DataFrameTreeShrink = GetDataFrame(file="Hipit shrink.csv")
 print(GetGini(DataFrameTreeShrink)[:2])"""
