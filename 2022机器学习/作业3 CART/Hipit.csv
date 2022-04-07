@@ -1,0 +1,12 @@
+;
+序号;是否有房;婚姻状况;年收入;是否拖欠贷款
+1;yes;single;125K;no
+2;no;married;100K;no
+3;no;single;70K;no
+4;yes;married;120K;no
+5;no;divorced;95K;yes
+6;no;married;60K;no
+7;yes;divorced;220K;no
+8;no;single;85K;yes
+9;no;married;75K;no
+10;no;single;90K;yes
