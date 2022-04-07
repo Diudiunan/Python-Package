@@ -2,7 +2,7 @@ import treePlotter
 
 def NT_To_DD(NameList, NameTuple):
     DDict = {}
-    for i in NameList:
+    for i in NameList[::-1]:
         Dict = {}
         if not DDict:
             Dict[i.node] = {i.branch: NameTuple[0],
