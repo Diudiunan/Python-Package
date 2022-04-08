@@ -37,7 +37,7 @@ def givedataframe(Columns, root):
     return INPUTDATA
 
 help()
-DataFrameTree = GetDataFrame()
+DataFrameTree = GetDataFrame("Hipit int.csv")
 GETGINIO = GetGini(DataFrameTree)
 print(GETGINIO[:2])
 DrawIT(GETGINIO)
@@ -45,7 +45,7 @@ DrawIT(GETGINIO)
 DataFrameTreeShrink = GetDataFrame(file="Hipit shrink.csv")
 print(GetGini(DataFrameTreeShrink)[:2])"""
 ROOT = '是否拖欠房贷'
-Columns = ['是否有房', '婚姻状况', '年收入', '是否拖欠房贷']
+Columns = ['是否有房', '婚姻状况', '年收入(单位:K)', '是否拖欠房贷']
 SL1 = [["no", "single", "55K", ""]]
 #SL1 = [['yes', 'single', '125K', '']]
 OP = pd.DataFrame(SL1, columns=Columns)

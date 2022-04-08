@@ -5,8 +5,11 @@ def NT_To_DD(NameList, NameTuple):
     for i in NameList[::-1]:
         Dict = {}
         if not DDict:
-            Dict[i.node] = {i.branch: NameTuple[0],
-                             "other": NameTuple[1]}
+            if i.branch != "无分支":
+                Dict[i.node] = {i.branch: NameTuple[0],
+                                 "other": NameTuple[1]}
+            else:
+                Dict[i.node] = {i.branch: "NULL"}
             DDict = Dict
         else:
             Dict[i.node] = {i.branch: NameTuple[0],
