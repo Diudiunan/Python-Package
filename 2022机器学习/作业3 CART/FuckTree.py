@@ -10,6 +10,9 @@ class CTree():
         self.data = DataFrame
         self.index = DataFrame.columns
         #排序列内元素集合
+        #排序的不同会对后期树的分支抉择产生影响
+        """self.dict_set = {i: sorted(list(set(DataFrame[i])), reverse=True)
+                         for i in DataFrame.columns}"""
         self.dict_set = {i: sorted(list(set(DataFrame[i])))
                          for i in DataFrame.columns}
         self.dict_num = {}
@@ -38,8 +41,6 @@ class CTree():
                 print(MidValueList)
                 self.serialcolumns[i] = {"sortlist": SortList,
                                          "midvaluelist": MidValueList}
-        if not self.serialcolumns:
-            self.serialcolumns["疑似值为连续的列"] = "无·"
         return self.serialcolumns
 
     @property
@@ -49,7 +50,7 @@ class CTree():
         dictsetrootlist = self.dict_set[root]
         for LongitudinalName in self.index:
             if LongitudinalName != root:
-                dictsettolist = list(self.dict_set[LongitudinalName])
+                dictsettolist = self.dict_set[LongitudinalName]
                 index = pd.MultiIndex.from_product([[root],
                                                     dictsetrootlist],
                                                    names=["根", "根值"])
@@ -200,7 +201,6 @@ def GetGini(DataFrame, root=-1):
     OutSetLen = len(Onectree.index)
     for i in range(OutSetLen-1):
         GetDict = Onectree.Gini()
-        print(GetDict)
         AllGiniDictList.append(GetDict)
         Mixdict = {"key": '', "attr": '', "MixValue": 0}
         #为了满足要求：同大gini 则取前值。如果取后值请注释上下行->
@@ -228,7 +228,7 @@ def GetGini(DataFrame, root=-1):
         except ValueError:
             print("没有找到{}".format(Mixdict["key"]))
         data = data.loc[data[Mixdict["key"]] != Mixdict["attr"], RootGroupList]
-        Onectree = CTree(data)
+        Onectree = CTree(data, root=root)
     return BranchList, BranchPoint, AllGiniDictList
 
 def GetDataFrame(file="Hipit.csv"):
@@ -247,7 +247,7 @@ def help():
     print(STR.format(name="Diudiunan"))
 
 if __name__ == "__main__":
-    #DataFrameTree = GetDataFrame("Hipit int.csv")
+    DataFrameTree = GetDataFrame("Hipit int.csv")
     #MyTree = CTree(DataFrameTree)
     #print(MyTree.dict_set)
     #print(MyTree.isserialcolumns())
@@ -260,7 +260,7 @@ if __name__ == "__main__":
         print([p[1] for p in v.columns])"""
     #print(MyTree.Gini())
     #print(MyTree.GiniTree)
-    #print(GetGini(DataFrameTree)[:])
+    print(GetGini(DataFrameTree)[:])
     """
     print(GetGini(DataFrameTree, root="是否有房")[:2])
     DataFrameTreeShrink = GetDataFrame(file="Hipit shrink.csv")

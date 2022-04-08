@@ -10,6 +10,7 @@ def HeHiHe(GET, ADATA):
     for inde in AINDEX:
         RE = ''
         for i in GTREE:
+            print(i.node)
             if ADATA.loc[inde, i.node] == i.branch:
                 RE = GBRANCH[0]
             else:
@@ -39,14 +40,16 @@ def givedataframe(Columns, root):
 help()
 DataFrameTree = GetDataFrame("Hipit int.csv")
 GETGINIO = GetGini(DataFrameTree)
+#GETGINIO = GetGini(DataFrameTree, root="是否有房")
 print(GETGINIO[:2])
 DrawIT(GETGINIO)
 """print(GetGini(DataFrameTree, root="是否有房")[:2])
 DataFrameTreeShrink = GetDataFrame(file="Hipit shrink.csv")
 print(GetGini(DataFrameTreeShrink)[:2])"""
 ROOT = '是否拖欠房贷'
-Columns = ['是否有房', '婚姻状况', '年收入(单位:K)', '是否拖欠房贷']
-SL1 = [["no", "single", "55K", ""]]
+Columns = ['是否有房', '婚姻状况', '年收入(单位:K)', '是否拖欠贷款']
+#SL1 = [["no", "single", "55", ""]]
+SL1 = [["", "single", "55K", "no"]]
 #SL1 = [['yes', 'single', '125K', '']]
 OP = pd.DataFrame(SL1, columns=Columns)
 """
