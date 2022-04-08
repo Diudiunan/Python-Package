@@ -38,6 +38,8 @@ class CTree():
                 print(MidValueList)
                 self.serialcolumns[i] = {"sortlist": SortList,
                                          "midvaluelist": MidValueList}
+        if not self.serialcolumns:
+            self.serialcolumns["疑似值为连续的列"] = "无·"
         return self.serialcolumns
 
     @property
