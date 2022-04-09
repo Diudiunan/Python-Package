@@ -155,35 +155,7 @@ class CTree():
                 DictGini[key] = Attributedictionary
             return DictGini
 
-    #  下列为一个内部循环生产函数，由于牵涉到类的内部修改故而放弃，以计留念
-    """def GetGini(self):
-        # 嘿嗨嘿，兄弟们！开涮！！！
-        RootGroupList = [i for i in self.index]
-        BranchTuple = namedtuple("Branch", "level node branch gini")
-        RootGroupList.remove(self.root["rootname"])
-        BranchList = []
-        for i in range(len(self.index) - 1):
-            GetDict = self.Gini()
-            Mixdict = {"key": '', "attr": '', "MixValue": 0}
-            for key, value in GetDict.items():
-                for attr, gini in value.items():
-                    if Mixdict["MixValue"] < gini:
-                        Mixdict["key"] = key[1]
-                        Mixdict["attr"] = attr
-                        Mixdict["MixValue"] = gini
-            BranchList.append(BranchTuple(i, Mixdict["key"],
-                                          Mixdict["attr"], Mixdict["MixValue"]))
-            self.root["rootname"] = Mixdict["key"]
-            self.root["rootgini"] = 0
-            self.root["giniget"] = True
-            self.data = self.data.loc[
-                self.data[Mixdict["key"]] != Mixdict["attr"], RootGroupList]
-            RootGroupList.remove(Mixdict["key"])
-        return BranchList"""
-
-    """@property
-    def GiniTree(self):
-        return self.GetGini()"""
+    
 
 def GetGini(DataFrame, root=-1):
     #嘿嗨嘿，兄弟们！开涮！！！
