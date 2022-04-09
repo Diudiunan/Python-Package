@@ -11,8 +11,6 @@ class CTree():
         self.index = DataFrame.columns
         #排序列内元素集合
         #排序的不同会对后期树的分支抉择产生影响
-        """self.dict_set = {i: sorted(list(set(DataFrame[i])), reverse=True)
-                         for i in DataFrame.columns}"""
         self.dict_set = {i: sorted(list(set(DataFrame[i])))
                          for i in DataFrame.columns}
         self.dict_num = {}
@@ -38,7 +36,6 @@ class CTree():
                 SortList = sorted([i for i in self.data[i]])
                 MidValueList = [(SortList[i]+SortList[i+1])/2
                                 for i in range(len(SortList)-1)]
-                print(MidValueList)
                 self.serialcolumns[i] = {"sortlist": SortList,
                                          "midvaluelist": MidValueList}
         return self.serialcolumns
@@ -79,7 +76,7 @@ class CTree():
             for i in RootList:
                 GiniNumber -= (i / RootListSum) ** 2
             self.root["rootgini"] = GiniNumber
-            print(GiniNumber)
+            #print(GiniNumber) #输出root的gini值
             self.root["giniget"] = True
             return self.Gini()
         else:
@@ -88,7 +85,7 @@ class CTree():
             if not self.__alternate:                                 #确保多级索引划分完毕
                 self.give_alternateDF
             for key, data in self.__alternate.items():               #开始遍历计算根下属性
-                print(data)
+                #print(data) #输出交叉集便于观察
                 Attributedictionary = {}                             #定义属性系数字典
                 datacolumns = [p[1] for p in data.columns]           #获得多级索引内柱
                 dataindexs = [p[1] for p in data.index]              #获得多级索引行栏
@@ -130,7 +127,7 @@ class CTree():
                         GiniOfFna = RootGini - \
                                     selfrate_s * selfgini_s - \
                                     otherrate_s * othergini_s
-                        Attributedictionary[midv] = GiniOfFna        #一个gini值
+                        Attributedictionary["<%s" % midv] = GiniOfFna        #一个gini值
                 else:  #通用离散处理
                     for Gna in datacolumns:                          #遍历多级索引的内柱
                         selfrate = dictsumaxis0[Gna]/DenominatorSum  #内部比例
@@ -192,10 +189,10 @@ def GetGini(DataFrame, root=-1):
     #嘿嗨嘿，兄弟们！开涮！！！
     data = DataFrame
     Onectree = CTree(data, root)
+    THEFIRSTSERIOUSCOLUMN = Onectree.serialcolumns
     BranchPoint = tuple(Onectree.dict_set[Onectree.root["rootname"]])
     RootGroupList = [i for i in Onectree.index]
     BranchTuple = namedtuple("Branch", "level node branch gini")
-    #RootGroupList.remove(Onectree.root["rootname"])
     AllGiniDictList = []
     BranchList = []
     OutSetLen = len(Onectree.index)
@@ -229,7 +226,7 @@ def GetGini(DataFrame, root=-1):
             print("没有找到{}".format(Mixdict["key"]))
         data = data.loc[data[Mixdict["key"]] != Mixdict["attr"], RootGroupList]
         Onectree = CTree(data, root=root)
-    return BranchList, BranchPoint, AllGiniDictList
+    return BranchList, BranchPoint, THEFIRSTSERIOUSCOLUMN, AllGiniDictList
 
 def GetDataFrame(file="Hipit.csv"):
     with open(file, encoding="UTF-8") as Reader:

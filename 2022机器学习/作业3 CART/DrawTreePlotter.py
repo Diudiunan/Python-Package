@@ -9,7 +9,7 @@ def NT_To_DD(NameList, NameTuple):
                 Dict[i.node] = {i.branch: NameTuple[0],
                                  "other": NameTuple[1]}
             else:
-                Dict[i.node] = {i.branch: "NULL"}
+                Dict[i.node] = {NameTuple[1]: "NULL"}
             DDict = Dict
         else:
             Dict[i.node] = {i.branch: NameTuple[0],
